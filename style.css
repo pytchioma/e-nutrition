@@ -1,205 +1,1768 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ============================================
+   BOOST ENERGY — COMPLETE STYLESHEET
+   All styles for index, products, about, contact
+   No JavaScript — pure HTML & CSS only
+   ============================================ */
+
+/* =============================================
+   RESET & BASE STYLES
+   Removes browser default spacing and sets
+   box-sizing so padding doesn't break layouts
+============================================== */
+*, *::before, *::after {
+  margin: 0;       /* Remove default margin from all elements */
+  padding: 0;      /* Remove default padding from all elements */
+  box-sizing: border-box; /* Padding and border included in element width */
 }
 
-body{
-    background: url("ChatGPT Image Apr 27, 2026, 10_40_55 AM.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0;
-    padding-left: 40px;
-    font-family: 'Raleway', sans-serif;
+/* =============================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   Defined on :root so they're available globally
+   Reference with var(--name) anywhere in the file
+============================================== */
+:root {
+  --pink:        #ff4f8b;   /* Primary brand pink — buttons, accents */
+  --pink-dark:   #e03070;   /* Darker pink for hover states */
+  --pink-light:  #ff8ab8;   /* Lighter pink for borders and subtle accents */
+  --white:       #ffffff;   /* Pure white */
+  --off-white:   #f9f5f7;   /* Slightly warm white for section backgrounds */
+  --dark:        #1a0a12;   /* Very dark maroon — used for footer and hero overlay */
+  --dark-mid:    #2d1020;   /* Mid-dark for gradients */
+  --gray:        #6b7280;   /* Body text gray */
+  --gray-light:  #e5e7eb;   /* Light gray for borders and dividers */
+  --font-main:   'Poppins', sans-serif;       /* Body and UI font */
+  --font-display:'Playfair Display', serif;   /* Display font for headings */
+  --radius-sm:   8px;       /* Small border radius for inputs */
+  --radius-md:   16px;      /* Medium radius for cards */
+  --radius-lg:   32px;      /* Large radius for big cards */
+  --radius-pill: 999px;     /* Full pill shape for buttons and badges */
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.08);   /* Subtle card shadow */
+  --shadow-md:   0 8px 32px rgba(0,0,0,0.14);  /* Medium hover shadow */
+  --shadow-lg:   0 20px 60px rgba(0,0,0,0.22); /* Large dramatic shadow */
+  --transition:  0.3s ease; /* Default transition speed for hover effects */
+  --nav-height:  80px;      /* Height of the fixed nav bar — used to offset page content */
 }
 
-.nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: transparent;
-    backdrop-filter: blur(10px);
-    padding-top: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+/* =============================================
+   HTML & BODY BASE
+============================================== */
+html {
+  scroll-behavior: smooth;          /* Smooth scrolling when clicking anchor links */
+  -webkit-text-size-adjust: 100%;   /* Prevents iOS from auto-resizing text */
+}
+
+body {
+  font-family: var(--font-main);    /* Poppins for all body text */
+  color: var(--dark);               /* Default text color */
+  background-color: var(--white);   /* White page background */
+  line-height: 1.6;                 /* Comfortable reading line height */
+  overflow-x: hidden;               /* Prevents horizontal scroll on mobile */
+}
+
+/* Makes all images responsive by default */
+img {
+  max-width: 100%;   /* Image never exceeds its container width */
+  height: auto;      /* Maintains aspect ratio */
+  display: block;    /* Removes inline gap below images */
+}
+
+/* Removes bullet points from all lists */
+ul { list-style: none; }
+
+/* Removes underline from all links by default */
+a {
+  color: inherit;        /* Inherits text color from parent */
+  text-decoration: none; /* No underline */
+}
+
+/* Base button reset */
+button {
+  font-family: var(--font-main); /* Ensures buttons use Poppins not system font */
+  cursor: pointer;               /* Shows hand cursor on hover */
+  border: none;                  /* Removes default border */
+  background: none;              /* Removes default background */
+}
+
+/* =============================================
+   UTILITY CLASSES
+   Reusable helpers used across all pages
+============================================== */
+
+/* Centers content and limits max width */
+.container {
+  width: 100%;           /* Full width of parent */
+  max-width: 1200px;     /* Never wider than 1200px */
+  margin: 0 auto;        /* Centers horizontally */
+  padding: 0 24px;       /* Side padding so content doesn't touch screen edges */
+}
+
+/* Small pill label above section titles */
+.section-tag {
+  display: inline-block;          /* Shrinks to fit content */
+  font-size: 0.75rem;             /* Small text */
+  font-weight: 600;               /* Semi-bold */
+  letter-spacing: 0.12em;         /* Spaced out letters for label feel */
+  text-transform: uppercase;      /* All caps */
+  color: var(--pink);             /* Brand pink text */
+  background: rgba(255, 79, 139, 0.1); /* Transparent pink background */
+  padding: 4px 14px;              /* Vertical and horizontal padding */
+  border-radius: var(--radius-pill); /* Full pill shape */
+  margin-bottom: 14px;            /* Space below before the heading */
+}
+
+/* Centered heading block used at the top of most sections */
+.section-header {
+  text-align: center;       /* Centers all text inside */
+  max-width: 640px;         /* Limits width so text doesn't stretch too wide */
+  margin: 0 auto 56px;      /* Centers it and adds space below */
+}
+
+/* Section main heading */
+.section-title {
+  font-family: var(--font-display); /* Playfair Display for elegance */
+  font-size: clamp(1.8rem, 4vw, 2.8rem); /* Fluid size: min 1.8rem, max 2.8rem */
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+
+/* Section subtitle / description text */
+.section-sub {
+  font-size: 1rem;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* =============================================
+   BUTTONS
+   Shared button styles used across all pages
+============================================== */
+
+/* Base button — all variants extend this */
+.btn {
+  display: inline-flex;           /* Allows icon + text side by side */
+  align-items: center;            /* Vertically centers content */
+  justify-content: center;        /* Horizontally centers content */
+  gap: 8px;                       /* Space between icon and text */
+  font-family: var(--font-main);  /* Poppins font */
+  font-weight: 600;               /* Semi-bold text */
+  font-size: 0.95rem;
+  padding: 14px 32px;             /* Comfortable click area */
+  border-radius: var(--radius-pill); /* Pill shape */
+  border: 2px solid transparent;  /* Transparent border — overridden per variant */
+  cursor: pointer;
+  transition: var(--transition);  /* Smooth hover animation */
+  white-space: nowrap;            /* Prevents text wrapping inside button */
+  text-decoration: none;          /* No underline when used as <a> */
+}
+
+/* Solid pink button — primary action */
+.btn-primary {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--pink-dark);       /* Darker pink on hover */
+  border-color: var(--pink-dark);
+  transform: translateY(-2px);        /* Slight lift effect */
+  box-shadow: 0 8px 24px rgba(255,79,139,0.35); /* Pink glow shadow */
+}
+
+/* Transparent outlined button — used on dark backgrounds */
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,0.5); /* Semi-transparent white border */
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  background: rgba(255,255,255,0.15); /* Slight white fill on hover */
+  border-color: var(--white);
+}
+
+/* White button — used on colored backgrounds like the CTA banner */
+.btn-white {
+  background: var(--white);
+  color: var(--pink);
+  border-color: var(--white);
+}
+.btn-white:hover,
+.btn-white:focus-visible {
+  background: var(--off-white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* Small button — used inside product cards */
+.btn-small {
+  padding: 9px 20px;
+  font-size: 0.82rem;
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+  border-radius: var(--radius-pill);
+}
+.btn-small:hover,
+.btn-small:focus-visible {
+  background: var(--pink-dark);
+  border-color: var(--pink-dark);
+}
+
+/* Makes a button stretch to full container width */
+.btn-full { width: 100%; }
+
+/* =============================================
+   FOCUS STYLES — Accessibility
+   Visible keyboard focus ring for all interactive elements
+============================================== */
+:focus-visible {
+  outline: 3px solid var(--pink); /* Pink ring around focused element */
+  outline-offset: 3px;            /* Small gap between element and ring */
+}
+
+/* =============================================
+   HEADER & NAVIGATION
+   Fixed at the top of the viewport on all pages
+   Uses backdrop-filter blur for a frosted glass effect
+============================================== */
+
+/* Outer header wrapper — fixed to top of screen */
+.header {
+  position: fixed;   /* Stays at top even when scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;      /* Sits above all page content */
+  padding: 0 24px;   /* Side padding so nav doesn't touch screen edges */
+}
+
+/* Inner nav bar — pill-shaped frosted glass container */
+.nav {
+  display: flex;                  /* Horizontal layout */
+  align-items: center;            /* Vertically centers logo, links, and CTA */
+  justify-content: space-between; /* Spreads items to left, center, right */
+  max-width: 1200px;              /* Matches container width */
+  margin: 16px auto 0;            /* 16px gap from top of screen */
+  padding: 14px 28px;             /* Inner padding */
+  background: rgba(26, 10, 18, 0.55);       /* Semi-transparent dark background */
+  backdrop-filter: blur(18px);              /* Frosted glass blur effect */
+  -webkit-backdrop-filter: blur(18px);      /* Safari support for backdrop-filter */
+  border-radius: var(--radius-pill);        /* Full pill shape */
+  border: 1px solid rgba(255,255,255,0.1);  /* Subtle white border */
+}
+
+/* Brand logo in the nav */
+.logo {
+  font-family: var(--font-display); /* Playfair Display for brand feel */
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  flex-shrink: 0; /* Prevents logo from shrinking when space is tight */
+}
+
+/* Horizontal list of nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Small gap between each link */
+}
+
+/* Individual nav link */
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75); /* Slightly transparent white */
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  transition: var(--transition);
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--white);
+  background: rgba(255,255,255,0.1); /* Subtle white highlight on hover */
+}
+/* Active state — highlights the current page link */
+.nav-link.active {
+  color: var(--white);
+  background: rgba(255,79,139,0.25); /* Pink tint for active page */
+}
+
+/* Shop Now CTA button in the nav */
+.nav-cta {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--pink);
+  padding: 9px 22px;
+  border-radius: var(--radius-pill);
+  transition: var(--transition);
+  flex-shrink: 0; /* Prevents button from shrinking */
+}
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  background: var(--pink-dark);
+  transform: translateY(-1px);
+}
+
+/* =============================================
+   HERO SECTION — Homepage only
+   Full-viewport background image with content
+   at the bottom. The fixed nav overlaps the top
+   so we use min-height: 100vh and align to bottom.
+============================================== */
+
+.hero {
+  min-height: 100vh;  /* Full screen height */
+  /* Background image — kept from original local file */
+  background: url("ChatGPT Image Apr 27, 2026, 10_40_55 AM.png") center center / cover no-repeat;
+  display: flex;
+  flex-direction: column;       /* Stack content vertically */
+  justify-content: flex-end;    /* Push content to the bottom */
+  padding-top: 110px;           /* Clears the fixed nav so nothing is hidden behind it */
+  padding-bottom: 80px;         /* Space from bottom of screen */
+  position: relative;           /* Needed for the ::before overlay pseudo-element */
+}
+
+/* Dark gradient overlay on top of the background image */
+/* Makes text readable against any background photo */
+.hero::before {
+  content: '';       /* Required for pseudo-elements to render */
+  position: absolute;
+  inset: 0;          /* Shorthand for top/right/bottom/left: 0 — covers full hero */
+  background: linear-gradient(
+    to bottom,
+    rgba(26,10,18,0.15) 0%,   /* Very light at the top */
+    rgba(26,10,18,0.1)  40%,  /* Almost transparent in the middle */
+    rgba(26,10,18,0.65) 100%  /* Dark at the bottom where text sits */
+  );
+}
+
+/* Content wrapper — sits above the overlay */
+.hero-content {
+  position: relative; /* Stacks above the ::before overlay */
+  z-index: 1;         /* Ensures content is above the gradient overlay */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Small badge above the headline */
+.hero-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pink-light);
+  background: rgba(255,79,139,0.18);
+  border: 1px solid rgba(255,79,139,0.35);
+  padding: 5px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 20px;
+}
+
+/* Large display headline */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 8rem); /* Fluid: 3rem on mobile, up to 8rem on desktop */
+  font-weight: 800;
+  line-height: 0.95;      /* Tight line height for large display text */
+  color: var(--white);
+  letter-spacing: -2px;   /* Tight tracking for display headings */
+  margin-bottom: 24px;
+}
+
+/* Subtitle paragraph below the headline */
+.hero-desc {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,0.82);
+  max-width: 420px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* Row of CTA buttons */
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;   /* Wraps to next line on small screens */
+  margin-bottom: 48px;
+}
+
+/* Row of stat numbers */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Individual stat block */
+.stat {
+  display: flex;
+  flex-direction: column; /* Number on top, label below */
+}
+
+/* Large bold number */
+.stat-num {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+}
+
+/* Small label below the number */
+.stat-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+/* Thin vertical line between stats */
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* =============================================
+   PAGE HERO — Inner pages (Products, About, Contact)
+   Dark gradient banner that sits below the fixed nav.
+   padding-top accounts for the fixed nav height so
+   content is never hidden behind it.
+============================================== */
+.page-hero {
+  padding: 140px 0 80px; /* Top padding = nav height + extra breathing room */
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-mid) 100%);
+  text-align: center;
+}
+
+/* Large heading on inner page heroes */
+.page-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+/* Subtitle text on inner page heroes */
+.page-hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,0.7);
+  max-width: 520px;
+  margin: 0 auto; /* Centers the text block */
+  line-height: 1.7;
+}
+
+/* =============================================
+   FEATURES SECTION — Homepage
+   Six benefit cards in a 3-column grid
+============================================== */
+
+/* Section wrapper with off-white background */
+.features {
+  padding: 100px 0;
+  background: var(--off-white);
+}
+
+/* 3-column grid for feature cards */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 28px;
+}
+
+/* Individual feature card */
+.feature-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid var(--gray-light);
+}
+.feature-card:hover {
+  transform: translateY(-6px);       /* Lifts card on hover */
+  box-shadow: var(--shadow-md);
+  border-color: var(--pink-light);   /* Pink border on hover */
+}
+
+/* Icon container — Font Awesome icon inside */
+.feature-icon {
+  font-size: 1.8rem;    /* Controls the size of the FA icon */
+  color: var(--pink);   /* Pink icon color */
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 0.92rem;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* =============================================
+   PRODUCTS PREVIEW — Homepage
+   Three featured product cards
+============================================== */
+
+.products-preview {
+  padding: 100px 0;
+  background: var(--white);
+}
+
+/* 3-column product grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 48px; /* Space before the "View All" button */
+}
+
+/* Product card — flex column so footer sticks to bottom */
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;          /* Clips the image to the card's rounded corners */
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-light);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;    /* Stacks image on top, info below */
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Image container with gradient fallback background */
+.product-img-wrap {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Product image — fills the container */
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;              /* Crops image to fill without distorting */
+  transition: transform 0.5s ease;
+}
+.product-card:hover .product-img {
+  transform: scale(1.06); /* Subtle zoom on hover */
+}
+
+/* Text content area below the image */
+.product-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Takes remaining height so footer always sits at bottom */
+}
+
+/* Colored badge pill — default pink */
+.product-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 10px;
+  background: rgba(255,79,139,0.12);
+  color: var(--pink);
+  width: fit-content; /* Shrinks to text width */
+}
+/* Green badge for new products */
+.product-tag--new  { background: rgba(67,233,123,0.12); color: #16a34a; }
+/* Purple badge for calm products */
+.product-tag--calm { background: rgba(102,126,234,0.12); color: #4f46e5; }
+/* Deep pink badge for zero sugar products */
+.product-tag--zero { background: rgba(249,83,198,0.12); color: #be185d; }
+
+.product-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  font-size: 0.88rem;
+  color: var(--gray);
+  line-height: 1.6;
+  flex: 1;           /* Pushes the footer down to the bottom of the card */
+  margin-bottom: 18px;
+}
+
+/* Price + button row at the bottom of the card */
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto; /* Ensures it always sits at the very bottom */
+}
+
+/* Price in Naira */
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--pink);
+}
+
+/* Centered "View All" button below the grid */
+.products-cta {
+  text-align: center;
+}
+
+/* =============================================
+   ALL PRODUCTS PAGE
+   Full product grid + CSS-only filter tabs
+============================================== */
+
+.products-section {
+  padding: 60px 0 100px;
+  background: var(--off-white);
+}
+
+/* CSS-only filter tabs — uses hidden radio inputs */
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;   /* Wraps to next line on small screens */
+  margin-bottom: 48px;
+}
+
+/* Hide the actual radio inputs — labels act as the visible buttons */
+.filter-radio { display: none; }
+
+/* Styled label that looks like a tab button */
+.filter-tab {
+  padding: 9px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--gray);
+  border: 2px solid var(--gray-light);
+  transition: var(--transition);
+}
+/* When the radio is checked, the adjacent label gets the active style */
+.filter-radio:checked + .filter-tab {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+}
+
+/* Full product grid — 3 columns */
+.all-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* =============================================
+   BUNDLE SECTION — Products page
+   Dark card promoting a value bundle deal
+============================================== */
+
+.bundle-section {
+  padding: 80px 0;
+  background: var(--white);
+}
+
+/* Two-column dark card */
+.bundle-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Text left, image right */
+  gap: 60px;
+  align-items: center;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-mid) 100%);
+  border-radius: var(--radius-lg);
+  padding: 60px;
+  overflow: hidden; /* Clips image to card's rounded corners */
+}
+
+/* Gold section tag inside the bundle card */
+.bundle-text .section-tag { color: #ffd200; background: rgba(255,210,0,0.15); }
+
+.bundle-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.bundle-text p {
+  color: rgba(255,255,255,0.75);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* List of bundle contents */
+.bundle-list {
+  list-style: none;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bundle-list li {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between checkmark icon and text */
+}
+/* Checkmark icon color inside bundle list */
+.bundle-list li i {
+  color: #ffd200; /* Gold checkmarks */
+}
+
+/* Price row: crossed-out old price + new discounted price */
+.bundle-price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.old-price {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: line-through; /* Strikethrough for original price */
+}
+.new-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffd200; /* Gold for the discounted price */
+}
+
+/* Bundle image container */
+.bundle-img-wrap {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 360px;
+}
+.bundle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================================
+   TESTIMONIALS SECTION — Homepage
+   Three customer review cards
+============================================== */
+
+.testimonials {
+  padding: 100px 0;
+  background: var(--off-white);
+}
+
+/* 3-column grid */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* Individual testimonial card */
+.testimonial-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-light);
+  transition: var(--transition);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Star rating row — Font Awesome star icons */
+.stars {
+  color: #f59e0b;      /* Amber/gold color for stars */
+  font-size: 0.9rem;   /* Controls FA icon size */
+  gap: 2px;
+  display: flex;
+  margin-bottom: 16px;
+}
+
+/* Quote text */
+.testimonial-card p {
+  font-size: 0.95rem;
+  color: var(--dark);
+  line-height: 1.7;
+  font-style: italic; /* Quotes are italicized */
+  margin-bottom: 24px;
+}
+
+/* Author row: avatar + name + title */
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Circular avatar image */
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;   /* Makes it circular */
+  object-fit: cover;
+  flex-shrink: 0;       /* Prevents avatar from shrinking */
+}
+
+.testimonial-author strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.testimonial-author span {
+  font-size: 0.78rem;
+  color: var(--gray);
+}
+
+/* =============================================
+   CTA BANNER — Homepage
+   Full-width pink section with a call to action
+============================================== */
+
+.cta-banner {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--pink) 0%, #c2185b 100%); /* Pink to deep pink */
+}
+
+/* Centered content block */
+.cta-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.cta-content p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+/* =============================================
+   ABOUT PAGE — STORY SECTION
+   Two-column layout: text left, image right
+============================================== */
+
+.story-section {
+  padding: 100px 0;
+  background: var(--white);
+}
+
+/* Two equal columns */
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.story-text .section-tag { margin-bottom: 16px; }
+
+.story-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.story-text p {
+  font-size: 0.98rem;
+  color: var(--gray);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.story-text .btn { margin-top: 12px; }
+
+/* Image container with rounded corners and shadow */
+.story-img-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;   /* Clips image to rounded corners */
+  height: 480px;
+  box-shadow: var(--shadow-lg);
+}
+
+.story-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================================
+   VALUES SECTION — About page
+   Four cards showing brand core values
+============================================== */
+
+.values-section {
+  padding: 100px 0;
+  background: var(--off-white);
+}
+
+/* 4-column grid */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.value-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-light);
+  transition: var(--transition);
+}
+.value-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--pink-light);
+}
+
+/* Icon container — Font Awesome icon inside */
+.value-icon {
+  font-size: 1.8rem;   /* Controls FA icon size */
+  color: var(--pink);  /* Pink icon */
+  margin-bottom: 16px;
+}
+
+.value-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.value-card p {
+  font-size: 0.88rem;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* =============================================
+   TEAM SECTION — About page
+   Three team member cards
+============================================== */
+
+.team-section {
+  padding: 100px 0;
+  background: var(--white);
+}
+
+/* 3-column grid */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.team-card {
+  text-align: center;
+  padding: 36px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-light);
+  transition: var(--transition);
+}
+.team-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--pink-light);
+  transform: translateY(-4px);
+}
+
+/* Circular team member photo */
+.team-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 18px; /* Centers the image and adds space below */
+  border: 3px solid var(--pink-light);
+}
+
+.team-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+/* Job title */
+.team-card span {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--pink);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.team-card p {
+  font-size: 0.88rem;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* =============================================
+   MILESTONES / TIMELINE — About page
+   Vertical timeline with a CSS-drawn line
+============================================== */
+
+.milestones-section {
+  padding: 100px 0;
+  background: var(--off-white);
+}
+
+/* Timeline container — the vertical line is drawn with ::before */
+.timeline {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-left: 40px; /* Space for the vertical line on the left */
+}
+
+/* The vertical pink line running down the left side */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--pink), var(--pink-light));
+}
+
+/* Each timeline entry */
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 80px 1fr; /* Year column + content column */
+  gap: 24px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+
+/* Pink dot on the timeline line */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -46px;   /* Positions dot on the vertical line */
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pink);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--pink); /* Outer ring around the dot */
+}
+
+/* Year label */
+.timeline-year {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--pink);
+  text-align: right;
+  padding-top: 4px;
+}
+
+.timeline-content h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.timeline-content p {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* =============================================
+   CONTACT PAGE
+   Two-column layout: form + contact info
+============================================== */
+
+.contact-section {
+  padding: 80px 0 100px;
+  background: var(--off-white);
+}
+
+/* Two equal columns */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start; /* Aligns columns to the top */
+}
+
+/* Section headings inside contact columns */
+.contact-form-wrap h2,
+.contact-info h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 28px;
+}
+
+/* Form stacks fields vertically */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between each form group */
+}
+
+/* Two-column row for first + last name */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Label + input stacked vertically */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+/* Red asterisk for required fields */
+.form-group label span {
+  color: var(--pink);
+}
+
+/* Shared styles for all form inputs */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  color: var(--dark);
+  background: var(--white);
+  border: 2px solid var(--gray-light);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  transition: var(--transition);
+  width: 100%;
+  appearance: none;          /* Removes default browser styling on select */
+  -webkit-appearance: none;  /* Safari support */
+}
+
+/* Pink border + glow when input is focused */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,79,139,0.12);
+}
+
+/* Textarea can be resized vertically only */
+.form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* =============================================
+   CONTACT INFO COLUMN
+============================================== */
+
+/* Stacked list of contact detail items */
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+/* Each item: icon + text side by side */
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Icon container — Font Awesome icon inside */
+.contact-info-icon {
+  font-size: 1.2rem;   /* Controls FA icon size */
+  color: var(--pink);  /* Pink icon */
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 24px;         /* Fixed width keeps text aligned */
+  text-align: center;
+}
+
+/* Label above the contact value */
+.contact-info-item strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+/* Contact value text and links */
+.contact-info-item a,
+.contact-info-item span {
+  font-size: 0.95rem;
+  color: var(--gray);
+  transition: var(--transition);
+}
+.contact-info-item a:hover {
+  color: var(--pink);
+}
+
+/* Social links section */
+.contact-social {
+  margin-bottom: 36px;
+}
+
+.contact-social h3,
+.contact-faq h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+
+/* Wrapper for large social link pills */
+.social-links-lg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Large pill-style social link buttons */
+.social-link--lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dark);
+  background: var(--white);
+  border: 2px solid var(--gray-light);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  transition: var(--transition);
+}
+.social-link--lg:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+  transform: translateY(-2px);
+}
+
+/* =============================================
+   FAQ ACCORDION — Contact page
+   Pure CSS using <details> and <summary>
+   No JavaScript needed
+============================================== */
+
+.contact-faq {
+  margin-top: 8px;
+}
+
+/* Each FAQ item is a native <details> element */
+.faq-item {
+  border: 1px solid var(--gray-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* The clickable question header */
+.faq-item summary {
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--dark);
+  cursor: pointer;
+  list-style: none;              /* Removes default triangle marker */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition);
+}
+/* Removes the default disclosure triangle in WebKit browsers */
+.faq-item summary::-webkit-details-marker { display: none; }
+
+/* Plus icon on the right — shown when closed */
+.faq-item summary::after {
+  content: '+';
+  font-size: 1.2rem;
+  color: var(--pink);
+  font-weight: 300;
+  transition: var(--transition);
+}
+/* Minus icon — shown when open */
+.faq-item[open] summary::after {
+  content: '−';
+}
+
+.faq-item summary:hover {
+  background: var(--off-white);
+  color: var(--pink);
+}
+
+/* Answer text — visible when <details> is open */
+.faq-item p {
+  padding: 0 18px 16px;
+  font-size: 0.88rem;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* =============================================
+   FOOTER — Shared across all pages
+   Dark background, 4-column grid, bottom bar
+============================================== */
+
+.footer {
+  background: var(--dark); /* Very dark maroon background */
+  padding: 72px 0 0;       /* Top padding only — bottom handled by footer-bottom */
+}
+
+/* 4-column grid: brand info + 3 link columns */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr; /* Brand column is wider */
+  gap: 48px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.08); /* Subtle divider line */
+}
+
+/* Brand column: logo, description, social icons */
+.footer-brand .logo {
+  font-size: 1.8rem;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.footer-brand p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.5); /* Dimmed white text */
+  line-height: 1.7;
+  max-width: 280px;
+  margin-bottom: 24px;
+}
+
+/* Row of circular social icon buttons */
+.social-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Individual circular social icon button */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  font-size: 1rem;              /* Controls FA icon size */
+  color: rgba(255,255,255,0.7); /* Dimmed white icon */
+  transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.social-link:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+/* Column heading */
+.footer-col h4 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+/* Column link list */
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col ul li a {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  transition: var(--transition);
+}
+.footer-col ul li a:hover {
+  color: var(--pink-light);
+  padding-left: 4px; /* Subtle indent on hover */
+}
+
+/* Bottom bar: copyright + legal links + credit */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-bottom p {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Legal links row */
+.footer-legal {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal a {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+  transition: var(--transition);
+}
+.footer-legal a:hover {
+  color: var(--pink-light);
+}
+
+/* "Made with love by Chioma" credit line */
+.footer-credit {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* Pink heart icon inside the credit */
+.footer-credit i {
+  color: var(--pink);
+  font-size: 0.75rem;
+}
+
+/* =============================================
+   RESPONSIVE — TABLET (max-width: 1024px)
+   Adjusts multi-column grids to 2 columns
+============================================== */
+@media (max-width: 1024px) {
+
+  /* Features, products, testimonials: 3 cols → 2 cols */
+  .features-grid,
+  .products-grid,
+  .all-products-grid,
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Values: 4 cols → 2 cols */
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer: 4 cols → 2 cols */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  /* Bundle card: reduce padding and gap */
+  .bundle-card {
+    gap: 40px;
+    padding: 48px;
+  }
+
+  /* Story grid: reduce gap */
+  .story-grid {
+    gap: 48px;
+  }
+}
+
+/* =============================================
+   RESPONSIVE — SMALL TABLET (max-width: 768px)
+   Collapses most grids to single column
+   Hides nav links (mobile-friendly nav)
+============================================== */
+@media (max-width: 768px) {
+
+  /* Nav: hide links, keep logo + CTA */
+  .nav {
+    padding: 12px 20px;
+    margin: 12px auto 0;
+  }
+  .nav-links {
+    display: none; /* Hidden on mobile — no hamburger menu (no JS) */
+  }
+  .nav-cta {
+    margin-left: auto; /* Pushes CTA to the right when links are hidden */
+  }
+
+  /* Hero: keep nav clearance on tablet */
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+  .hero-title {
+    letter-spacing: -1px; /* Slightly less tight on smaller screens */
+  }
+  .hero-stats {
+    gap: 16px;
+  }
+
+  /* Reduce section padding on smaller screens */
+  .features,
+  .products-preview,
+  .testimonials,
+  .cta-banner,
+  .story-section,
+  .values-section,
+  .team-section,
+  .milestones-section {
+    padding: 72px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  /* All main grids → single column */
+  .features-grid,
+  .products-grid,
+  .all-products-grid,
+  .testimonials-grid,
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Values stays 2 columns on tablet */
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Story: stack text above image */
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .story-img-wrap {
+    height: 300px;
+  }
+
+  /* Bundle: stack text above image */
+  .bundle-card {
+    grid-template-columns: 1fr;
+    padding: 36px 28px;
+    gap: 32px;
+  }
+  .bundle-img-wrap {
+    height: 240px;
+  }
+
+  /* Contact: stack form above info */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  /* Footer: 2 columns, brand spans full width */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .footer-brand {
+    grid-column: 1 / -1; /* Spans all columns */
+  }
+
+  /* Footer bottom: stack vertically */
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-credit {
+    justify-content: center;
+  }
+}
+
+/* =============================================
+   RESPONSIVE — MOBILE (max-width: 480px)
+   Fine-tunes layout for small phones
+============================================== */
+@media (max-width: 480px) {
+
+  /* Nav: slightly less rounded on very small screens */
+  .nav {
+    border-radius: var(--radius-md);
+    margin: 10px auto 0;
+  }
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  /* Hero: less bottom padding, keep nav clearance */
+  .hero {
+    padding-top: 90px;   /* Slightly less on mobile but still clears the nav */
+    padding-bottom: 48px;
+  }
+
+  /* Stack hero buttons vertically */
+  .hero-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-actions .btn {
     width: 100%;
-}
+    text-align: center;
+  }
 
-.logo{
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-}
+  .hero-stats {
+    gap: 12px;
+  }
+  .stat-num {
+    font-size: 1.3rem;
+  }
 
-.nav-links{
-    display: flex;
-    gap: 30px;
-}
+  /* Inner page hero: less top padding */
+  .page-hero {
+    padding: 120px 0 60px;
+  }
 
-.nav-links a{
-    text-decoration: none;
-    color: rgb(255, 254, 254);
-    font-size: 18px;
-    font-weight: bold;
-}
+  /* Values: single column on small phones */
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
 
-h1{
-    font-size: 120px;
-    font-weight: 300;
-    line-height: 0.9;
-    color: white;
-    letter-spacing: -3px;
-}
+  /* Form: stack name fields vertically */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 
-.verified{
-    display: flex;
-    align-items: center;
+  /* Footer: single column */
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-legal {
+    flex-direction: column;
     gap: 8px;
-    color: white;
-    font-size: 18px;
-}
-
-button{
-    background-color: whitesmoke;
-    border: none;
-    border-radius: 30px;
-    height: 80px;
-    width: 300px;
-    color: #ff4f8b;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-button:hover{
-    background-color: #ff4f8b;
-    color: white;
-    transform: scale(1.05);
-}
-
-.description{
-    display: inline-block;
-    max-width: 320px;
-    color: white;
-    font-size: 18px;
-    line-height: 1.6;
-    padding-left: 50px;
-}
-
-.section{
-    display: flex;
     align-items: center;
+  }
+
+  /* Products section: less padding */
+  .products-section {
+    padding: 40px 0 72px;
+  }
+  .filter-tabs {
+    gap: 8px;
+  }
+  .filter-tab {
+    padding: 7px 16px;
+    font-size: 0.82rem;
+  }
+
+  /* Bundle: less padding */
+  .bundle-card {
+    padding: 28px 20px;
+  }
+
+  /* Timeline: less left padding */
+  .timeline {
+    padding-left: 28px;
+  }
+  .timeline-item {
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
+  }
+  .timeline-item::before {
+    left: -34px;
+  }
 }
 
-/* Tablet */
-@media (max-width: 850px){
-    body{
-        padding: 0 20px 50px 20px;
-    }
+/* =============================================
+   RESPONSIVE — TINY PHONES (max-width: 360px)
+   Last resort adjustments for very small screens
+============================================== */
+@media (max-width: 360px) {
 
-    .nav{
-        padding: 12px 18px;
-        margin-top: 14px;
-        border-radius: 50px;
-    }
+  .hero-title {
+    letter-spacing: -0.5px;
+  }
 
-    .logo{
-        font-size: 24px;
-    }
+  /* Slightly smaller buttons */
+  .btn {
+    padding: 12px 22px;
+    font-size: 0.88rem;
+  }
 
-    .nav-links{
-        gap: 18px;
-    }
-
-    .nav-links a{
-        font-size: 0.9rem;
-    }
-
-    h1{
-        font-size: 70px;
-        margin: 5vh 0 20px 0;
-    }
-
-    .section{
-        gap: 24px;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    button{
-        height: 60px;
-        min-width: 200px;
-        font-size: 1.2rem;
-    }
-
-    .description{
-        max-width: 100%;
-        padding-left: 0;
-    }
-}
-
-/* Mobile */
-@media (max-width: 580px){
-    body{
-        padding: 0 16px 40px 16px;
-    }
-
-    .nav{
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-        padding: 14px 16px;
-    }
-
-    .logo{
-        font-size: 28px;
-    }
-
-    .nav-links{
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .nav-links a{
-        font-size: 0.85rem;
-        padding: 6px 12px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 40px;
-    }
-
-    h1{
-        font-size: 52px;
-        text-align: left;
-        margin-top: 30px;
-    }
-
-    .section{
-        gap: 18px;
-    }
-
-    button{
-        width: 100%;
-        height: 54px;
-        font-size: 1.1rem;
-    }
-
-    .description{
-        padding-left: 0;
-        font-size: 0.9rem;
-        width: 100%;
-    }
-}
-
-/* Small phones */
-@media (max-width: 400px){
-    h1{
-        font-size: 42px;
-    }
-
-    button{
-        font-size: 1rem;
-        height: 50px;
-    }
+  /* Stack price and button in product cards */
+  .product-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-small {
+    width: 100%;
+    text-align: center;
+  }
 }

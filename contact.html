@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!-- HTML5 document declaration -->
+<html lang="en">
+<!-- lang="en" declares the page language -->
+<head>
+  <!-- Head: metadata, stylesheets, fonts -->
+  <meta charset="UTF-8" />
+  <!-- UTF-8 encoding for all characters -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Responsive scaling on mobile -->
+  <meta name="description" content="Contact Boost – Get in touch with our team for orders, partnerships, or just to say hi." />
+  <!-- SEO description -->
+  <title>Contact – Boost Energy</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Font Awesome icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+</head>
+<body class="page-inner">
+
+  <!-- =============================================
+       HEADER / NAVIGATION
+  ============================================== -->
+  <header class="header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" class="logo" aria-label="Boost home">Boost</a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="products.html" class="nav-link">Products</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        <!-- active marks this as the current page -->
+      </ul>
+      <a href="products.html" class="nav-cta">Shop Now</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =============================================
+         PAGE HERO
+         Dark banner at the top of the contact page
+    ============================================== -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="section-tag">Get In Touch</span>
+        <h1 class="page-hero-title">We'd Love to Hear From You</h1>
+        <p class="page-hero-sub">Questions, feedback, partnerships, or just want to say hi — we're here.</p>
+      </div>
+    </section>
+
+    <!-- =============================================
+         CONTACT SECTION
+         Two-column: form on left, info on right
+    ============================================== -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- contact-grid splits into two columns via CSS -->
+
+          <!-- LEFT COLUMN: Contact form -->
+          <div class="contact-form-wrap">
+            <h2>Send Us a Message</h2>
+
+            <!-- Form: action="#" keeps it on the same page; novalidate disables browser default validation UI -->
+            <form class="contact-form" action="#" method="post" novalidate>
+
+              <!-- First name + Last name side by side -->
+              <div class="form-row">
+                <!-- form-row creates a 2-column grid for the name fields -->
+                <div class="form-group">
+                  <label for="first-name">First Name <span aria-hidden="true">*</span></label>
+                  <!-- for="first-name" links the label to the input for accessibility -->
+                  <input type="text" id="first-name" name="first-name" placeholder="Ngozi" required autocomplete="given-name" />
+                  <!-- required marks the field as mandatory; autocomplete helps browsers autofill -->
+                </div>
+                <div class="form-group">
+                  <label for="last-name">Last Name <span aria-hidden="true">*</span></label>
+                  <input type="text" id="last-name" name="last-name" placeholder="Adeyemi" required autocomplete="family-name" />
+                </div>
+              </div>
+
+              <!-- Email field -->
+              <div class="form-group">
+                <label for="email">Email Address <span aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+                <!-- type="email" triggers email keyboard on mobile and basic format validation -->
+              </div>
+
+              <!-- Subject dropdown -->
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                  <!-- disabled + selected makes this a placeholder option that can't be reselected -->
+                  <option value="" disabled selected>Select a topic</option>
+                  <option value="order">Order Inquiry</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="press">Press &amp; Media</option>
+                  <!-- &amp; renders & safely in HTML -->
+                  <option value="feedback">Product Feedback</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Message textarea -->
+              <div class="form-group">
+                <label for="message">Message <span aria-hidden="true">*</span></label>
+                <textarea id="message" name="message" rows="5" placeholder="Tell us what's on your mind..." required></textarea>
+                <!-- rows="5" sets the default visible height of the textarea -->
+              </div>
+
+              <!-- Submit button — btn-full makes it full width -->
+              <button type="submit" class="btn btn-primary btn-full">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
+                <!-- Paper plane icon inside the button -->
+              </button>
+
+            </form>
+          </div>
+
+          <!-- RIGHT COLUMN: Contact details, social, FAQ -->
+          <div class="contact-info">
+            <h2>Contact Details</h2>
+
+            <!-- List of contact info items -->
+            <div class="contact-info-list">
+
+              <!-- Email -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">
+                  <i class="fa-solid fa-envelope"></i>
+                  <!-- Envelope icon for email -->
+                </div>
+                <div>
+                  <strong>Email</strong>
+                  <a href="mailto:hello@boostdrink.ng">hello@boostdrink.ng</a>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">
+                  <i class="fa-solid fa-phone"></i>
+                  <!-- Phone icon -->
+                </div>
+                <div>
+                  <strong>Phone</strong>
+                  <a href="tel:+2348001234567">+234 800 123 4567</a>
+                  <!-- Nigerian phone number -->
+                </div>
+              </div>
+
+              <!-- Business hours -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">
+                  <i class="fa-solid fa-clock"></i>
+                  <!-- Clock icon for hours -->
+                </div>
+                <div>
+                  <strong>Hours</strong>
+                  <span>Mon – Fri, 9am – 6pm WAT</span>
+                  <!-- WAT = West Africa Time -->
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <!-- Location pin icon -->
+                </div>
+                <div>
+                  <strong>Address</strong>
+                  <span>14 Adeola Odeku Street, Victoria Island, Lagos</span>
+                  <!-- Nigerian address -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Social media links section -->
+            <div class="contact-social">
+              <h3>Follow Us</h3>
+              <div class="social-links-lg">
+                <!-- social-links-lg is the larger pill-style variant -->
+                <a href="#" aria-label="Instagram" class="social-link--lg">
+                  <i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram
+                </a>
+                <a href="#" aria-label="Twitter" class="social-link--lg">
+                  <i class="fa-brands fa-x-twitter" aria-hidden="true"></i> Twitter
+                </a>
+                <a href="#" aria-label="TikTok" class="social-link--lg">
+                  <i class="fa-brands fa-tiktok" aria-hidden="true"></i> TikTok
+                </a>
+              </div>
+            </div>
+
+            <!-- FAQ accordion — pure CSS using <details> and <summary> -->
+            <div class="contact-faq">
+              <h3>Quick Answers</h3>
+
+              <!-- details element is natively collapsible with no JavaScript -->
+              <details class="faq-item">
+                <summary>How long does delivery take?</summary>
+                <!-- summary is the visible clickable header -->
+                <p>Standard delivery within Lagos takes 1–2 business days. Other states take 3–5 business days.</p>
+              </details>
+
+              <details class="faq-item">
+                <summary>Do you deliver outside Nigeria?</summary>
+                <p>Yes! We ship to select African countries. International orders typically arrive in 7–14 business days.</p>
+              </details>
+
+              <details class="faq-item">
+                <summary>Can I return or exchange?</summary>
+                <p>We offer a 30-day satisfaction guarantee. If you're not happy, we'll make it right.</p>
+              </details>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+       FOOTER — shared across all pages
+  ============================================== -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <span class="logo">Boost</span>
+          <p>Premium energy drinks crafted to keep you glowing, performing, and thriving every single day.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Follow us on Instagram" class="social-link">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Follow us on Twitter" class="social-link">
+              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Follow us on TikTok" class="social-link">
+              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="products.html">Strawberry Bliss</a></li>
+            <li><a href="products.html">Tropical Rush</a></li>
+            <li><a href="products.html">Blueberry Zen</a></li>
+            <li><a href="products.html">All Flavors</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@boostdrink.ng">hello@boostdrink.ng</a></li>
+            <li><a href="tel:+2348001234567">+234 800 123 4567</a></li>
+            <li><a href="contact.html">Send a Message</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Boost Energy Nigeria. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+        <p class="footer-credit">
+          Made with <i class="fa-solid fa-heart" aria-hidden="true"></i> by Chioma
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

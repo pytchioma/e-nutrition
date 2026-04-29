@@ -1,65 +1,460 @@
-
 <!DOCTYPE html>
+<!-- Sets the document type to HTML5 -->
 <html lang="en">
+<!-- lang="en" tells browsers and screen readers this page is in English -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Head contains metadata — not visible on the page -->
+  <meta charset="UTF-8" />
+  <!-- UTF-8 supports all characters including special symbols -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Makes the page scale correctly on all screen sizes -->
+  <meta name="description" content="Boost – Premium energy drinks crafted to keep you glowing all day." />
+  <!-- SEO description shown in search engine results -->
+  <title>Boost – Taste The Bliss, Feel The Boost</title>
+  <!-- Browser tab title -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Links the external CSS stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Font Awesome icon library for all icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <!-- Google Fonts: Poppins for body text, Playfair Display for headings -->
 </head>
 <body>
-    <nav class="nav">
-        <p class="logo">Boost</p>
 
-        <div class="nav-links">
-                <a href="#">About</a>
-                <a href="#">Products</a>
-                <a href="#">Promotions</a>
-                <a href="#">Contact</a>
+  <!-- =============================================
+       HEADER / NAVIGATION
+       Fixed at the top of the page on all screens
+  ============================================== -->
+  <header class="header">
+    <!-- header wraps the nav and stays fixed via CSS -->
+    <nav class="nav" aria-label="Main navigation">
+      <!-- aria-label helps screen readers identify this as the main nav -->
+
+      <!-- Brand logo — links back to homepage -->
+      <a href="index.html" class="logo" aria-label="Boost home">Boost</a>
+
+      <!-- Navigation links list -->
+      <ul class="nav-links" role="list">
+        <!-- role="list" restores list semantics removed by CSS list-style:none -->
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <!-- active class highlights the current page link -->
+        <li><a href="products.html" class="nav-link">Products</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Call-to-action button in the nav -->
+      <a href="products.html" class="nav-cta">Shop Now</a>
+    </nav>
+  </header>
+
+  <!-- main wraps all page content below the header -->
+  <main>
+
+    <!-- =============================================
+         HERO SECTION
+         Full-screen background image with headline
+    ============================================== -->
+    <section class="hero" aria-label="Hero">
+      <!-- aria-label names this section for screen readers -->
+      <div class="hero-content">
+        <!-- hero-content is positioned over the background image -->
+
+        <!-- Small badge above the headline -->
+        <span class="hero-badge">
+          <i class="fa-solid fa-star" aria-hidden="true"></i> New Formula 2026
+          <!-- fa-star is a Font Awesome icon; aria-hidden hides it from screen readers -->
+        </span>
+
+        <!-- Main headline -->
+        <h1 class="hero-title">Taste The Bliss,<br />Feel The Boost</h1>
+        <!-- br forces a line break inside the heading -->
+
+        <!-- Supporting description text -->
+        <p class="hero-desc">A creamy blend of strawberry flavor and refreshing energy, crafted to keep you glowing all day long.</p>
+
+        <!-- CTA buttons row -->
+        <div class="hero-actions">
+          <a href="products.html" class="btn btn-primary">Shop Now</a>
+          <!-- btn-primary is the solid pink button style -->
+          <a href="about.html" class="btn btn-ghost">Learn More</a>
+          <!-- btn-ghost is the transparent outlined button style -->
         </div>
 
-    </nav>
+        <!-- Stats row showing social proof numbers -->
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">50K+</span>
+            <!-- Large bold number -->
+            <span class="stat-label">Happy Customers</span>
+            <!-- Small label below the number -->
+          </div>
+          <div class="stat-divider"></div>
+          <!-- Thin vertical line between stats -->
+          <div class="stat">
+            <span class="stat-num">12</span>
+            <span class="stat-label">Flavors</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Natural</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h1>
-  Taste The Bliss, <br> Feel The Boost
-</h1>
-<div class="section">
-  <button>Shop Now</button>
-  
-  <p class="description">A creamy blend of strawberry flavor and refreshing energy, <br /> crafted to keep you glowing all day<br /></p>
-</div>
-</body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="nav">
-        <p class="logo">Boost</p>
+    <!-- =============================================
+         FEATURES SECTION
+         Six cards explaining product benefits
+    ============================================== -->
+    <section class="features" aria-label="Features">
+      <div class="container">
+        <!-- container limits max-width and centers content -->
 
-        <div class="nav-links">
-                <a href="#">About</a>
-                <a href="#">Products</a>
-                <a href="#">Promotions</a>
-                <a href="#">Contact</a>
+        <!-- Section heading block -->
+        <div class="section-header">
+          <span class="section-tag">Why Boost?</span>
+          <!-- Small pill label above the title -->
+          <h2 class="section-title">Engineered for Peak Performance</h2>
+          <p class="section-sub">Every can is packed with purpose — clean energy, real flavor, zero compromise.</p>
         </div>
 
-    </nav>
+        <!-- 3-column grid of feature cards -->
+        <div class="features-grid">
 
-    <h1>
-  Taste The Bliss, <br> Feel The Boost
-</h1>
-<div class="section">
-  <button>Shop Now</button>
-  
-  <p class="description">A creamy blend of strawberry flavor and refreshing energy, <br /> crafted to keep you glowing all day<br /></p>
-</div>
+          <!-- Feature card 1 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+              <!-- Lightning bolt icon for energy -->
+            </div>
+            <h3>Instant Energy</h3>
+            <p>Feel the surge within minutes. Our formula hits fast and lasts for hours without the crash.</p>
+          </div>
+
+          <!-- Feature card 2 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+              <!-- Leaf icon for natural ingredients -->
+            </div>
+            <h3>All Natural</h3>
+            <p>No artificial colors, no synthetic additives. Just clean, plant-based ingredients you can trust.</p>
+          </div>
+
+          <!-- Feature card 3 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+              <!-- Water droplet icon for hydration -->
+            </div>
+            <h3>Hydration Boost</h3>
+            <p>Infused with electrolytes to keep you hydrated and performing at your absolute best.</p>
+          </div>
+
+          <!-- Feature card 4 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-seedling" aria-hidden="true"></i>
+              <!-- Seedling icon for real fruit flavors -->
+            </div>
+            <h3>Real Flavors</h3>
+            <p>Crafted from real fruit extracts. Every sip tastes like the real thing — because it is.</p>
+          </div>
+
+          <!-- Feature card 5 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-capsules" aria-hidden="true"></i>
+              <!-- Capsules icon for vitamins -->
+            </div>
+            <h3>Vitamin Packed</h3>
+            <p>Loaded with B-vitamins, Vitamin C, and antioxidants to support your immune system daily.</p>
+          </div>
+
+          <!-- Feature card 6 -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-ban" aria-hidden="true"></i>
+              <!-- Ban icon for zero sugar -->
+            </div>
+            <h3>Zero Sugar</h3>
+            <p>All the taste, none of the guilt. Our zero-sugar range keeps your goals on track.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         PRODUCTS PREVIEW SECTION
+         Three featured product cards on the homepage
+    ============================================== -->
+    <section class="products-preview" aria-label="Featured products">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">Our Range</span>
+          <h2 class="section-title">Pick Your Flavor</h2>
+          <p class="section-sub">From bold and tropical to smooth and creamy — there's a Boost for every mood.</p>
+        </div>
+
+        <!-- Grid of 3 product cards -->
+        <div class="products-grid">
+
+          <!-- Product card: Strawberry Bliss -->
+          <article class="product-card">
+            <!-- article is used because each card is a self-contained piece of content -->
+            <div class="product-img-wrap" style="background: linear-gradient(135deg, #ff6b9d, #ff4f8b);">
+              <!-- Inline gradient background shows even if image fails to load -->
+              <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&q=80" alt="Strawberry Bliss energy drink" class="product-img" loading="lazy" />
+              <!-- loading="lazy" defers image load until it's near the viewport -->
+            </div>
+            <div class="product-info">
+              <span class="product-tag">Best Seller</span>
+              <!-- Colored pill badge -->
+              <h3 class="product-name">Strawberry Bliss</h3>
+              <p class="product-desc">Creamy, sweet, and energizing. The flavor that started it all.</p>
+              <div class="product-footer">
+                <!-- Price and button sit side by side -->
+                <span class="product-price">&#8358;6,500</span>
+                <!-- &#8358; is the HTML entity for the Naira sign ₦ -->
+                <a href="products.html" class="btn btn-small">Add to Cart</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product card: Tropical Rush -->
+          <article class="product-card">
+            <div class="product-img-wrap" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Tropical Rush energy drink" class="product-img" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <span class="product-tag product-tag--new">New</span>
+              <!-- product-tag--new applies a green color variant -->
+              <h3 class="product-name">Tropical Rush</h3>
+              <p class="product-desc">Mango, pineapple, and a hint of coconut. Pure island energy.</p>
+              <div class="product-footer">
+                <span class="product-price">&#8358;6,500</span>
+                <a href="products.html" class="btn btn-small">Add to Cart</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product card: Blueberry Zen -->
+          <article class="product-card">
+            <div class="product-img-wrap" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+              <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&q=80" alt="Blueberry Zen energy drink" class="product-img" loading="lazy" />
+            </div>
+            <div class="product-info">
+              <span class="product-tag product-tag--calm">Calm</span>
+              <!-- product-tag--calm applies a purple color variant -->
+              <h3 class="product-name">Blueberry Zen</h3>
+              <p class="product-desc">Smooth blueberry with calming adaptogens. Focus without the jitters.</p>
+              <div class="product-footer">
+                <span class="product-price">&#8358;7,200</span>
+                <a href="products.html" class="btn btn-small">Add to Cart</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Centered button to go to the full products page -->
+        <div class="products-cta">
+          <a href="products.html" class="btn btn-primary">View All Products</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =============================================
+         TESTIMONIALS SECTION
+         Three customer review cards
+    ============================================== -->
+    <section class="testimonials" aria-label="Customer testimonials">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">Real People</span>
+          <h2 class="section-title">What Our Customers Say</h2>
+        </div>
+
+        <!-- Grid of 3 testimonial cards -->
+        <div class="testimonials-grid">
+
+          <!-- Testimonial 1 -->
+          <blockquote class="testimonial-card">
+            <!-- blockquote is the correct semantic element for a quote -->
+            <div class="stars" aria-label="5 out of 5 stars">
+              <!-- aria-label gives screen readers the star rating as text -->
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <p>"Strawberry Bliss is literally my morning ritual now. Clean energy, no crash, and it tastes incredible."</p>
+            <footer class="testimonial-author">
+              <!-- footer inside blockquote holds the citation/author info -->
+              <img src="https://i.pravatar.cc/48?img=47" alt="Adaeze Okonkwo" class="author-avatar" loading="lazy" />
+              <div>
+                <strong>Adaeze Okonkwo</strong>
+                <!-- Nigerian name replacing the original -->
+                <span>Fitness Coach, Lagos</span>
+              </div>
+            </footer>
+          </blockquote>
+
+          <!-- Testimonial 2 -->
+          <blockquote class="testimonial-card">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <p>"I switched from coffee to Boost and I've never looked back. The Tropical Rush flavor is unreal."</p>
+            <footer class="testimonial-author">
+              <img src="https://i.pravatar.cc/48?img=12" alt="Emeka Nwosu" class="author-avatar" loading="lazy" />
+              <div>
+                <strong>Emeka Nwosu</strong>
+                <span>Software Engineer, Abuja</span>
+              </div>
+            </footer>
+          </blockquote>
+
+          <!-- Testimonial 3 -->
+          <blockquote class="testimonial-card">
+            <div class="stars" aria-label="5 out of 5 stars">
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+              <i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <p>"Finally an energy drink that doesn't make me feel wired and anxious. Blueberry Zen is perfect for work."</p>
+            <footer class="testimonial-author">
+              <img src="https://i.pravatar.cc/48?img=32" alt="Chidinma Eze" class="author-avatar" loading="lazy" />
+              <div>
+                <strong>Chidinma Eze</strong>
+                <span>Creative Director, Port Harcourt</span>
+              </div>
+            </footer>
+          </blockquote>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         CTA BANNER
+         Full-width pink section with a call to action
+    ============================================== -->
+    <section class="cta-banner" aria-label="Call to action">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to Feel the Boost?</h2>
+          <p>Join 50,000+ customers who've made the switch. Free delivery on orders over &#8358;15,000.</p>
+          <!-- &#8358; = ₦ Naira sign -->
+          <a href="products.html" class="btn btn-white">Shop the Collection</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+       FOOTER
+       Site-wide footer with links, brand info, credits
+  ============================================== -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+
+      <!-- Four-column footer grid -->
+      <div class="footer-grid">
+
+        <!-- Column 1: Brand info and social icons -->
+        <div class="footer-brand">
+          <span class="logo">Boost</span>
+          <!-- Reuses the logo style from the nav -->
+          <p>Premium energy drinks crafted to keep you glowing, performing, and thriving every single day.</p>
+
+          <!-- Social media icon links -->
+          <div class="social-links">
+            <a href="#" aria-label="Follow us on Instagram" class="social-link">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+              <!-- Font Awesome brand icon for Instagram -->
+            </a>
+            <a href="#" aria-label="Follow us on Twitter" class="social-link">
+              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+              <!-- Font Awesome brand icon for X/Twitter -->
+            </a>
+            <a href="#" aria-label="Follow us on TikTok" class="social-link">
+              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+              <!-- Font Awesome brand icon for TikTok -->
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick navigation links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Product links -->
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="products.html">Strawberry Bliss</a></li>
+            <li><a href="products.html">Tropical Rush</a></li>
+            <li><a href="products.html">Blueberry Zen</a></li>
+            <li><a href="products.html">All Flavors</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Contact details -->
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@boostdrink.ng">hello@boostdrink.ng</a></li>
+            <!-- Nigerian domain -->
+            <li><a href="tel:+2348001234567">+234 800 123 4567</a></li>
+            <!-- Nigerian phone number format -->
+            <li><a href="contact.html">Send a Message</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar: copyright, legal links, and credit -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 Boost Energy Nigeria. All rights reserved.</p>
+        <!-- &copy; renders the © copyright symbol -->
+
+        <!-- Legal links -->
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+
+        <!-- Made with love credit -->
+        <p class="footer-credit">
+          Made with <i class="fa-solid fa-heart" aria-hidden="true"></i> by Chioma
+          <!-- fa-heart is a Font Awesome solid heart icon -->
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
 </body>
-
 </html>
