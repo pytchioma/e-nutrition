@@ -37,7 +37,7 @@ body{
 }
 h1{
     font-size: 120px;
-    font-style: 'Raleway';
+    font-style: 'Raleway', sans-serif;
     font-weight: 30;
     line-height: 0.9;
     color: white;
